@@ -1,0 +1,27 @@
+{
+  "name": "typehardeningrc",
+  "version": "0.9.9-beta3",
+  "description": "Type hardening checker",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soldy/typeHardening.git"
+  },
+  "keywords": [
+    "hardening",
+    "type Checker"
+  ],
+  "author": "Soldy",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/Soldy/typeHardening/issues"
+  },
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "nanoTest": "^0.9.9-alpha-5",
+    "nyc": "^15.1.0"
+  }
+}
