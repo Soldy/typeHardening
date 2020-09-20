@@ -6,7 +6,7 @@ const typeHardeningBase = function(){
      * @param {object} options
      * @param {any} value
      * @public
-     * @return {boolean} || {any} false if failed
+     * @return {boolean} false if failed true if correct
      */
 
     this.check = function(options, value){
