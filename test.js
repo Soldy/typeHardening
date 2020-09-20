@@ -542,6 +542,53 @@ nanoTest.add(
     false 
 );
 
+nanoTest.add(
+    'check correct function ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'function'
+            },
+            function(){ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check correct arrow function ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'function'
+            },
+            ()=>{ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check incorrect function ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'function'
+            },
+            'not a function'
+        ]
+    },
+    '===',
+    false 
+);
+
 
 
 
