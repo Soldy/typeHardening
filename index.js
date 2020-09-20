@@ -2,6 +2,12 @@
 
 
 const typeHardeningBase = function(){
+    /*
+     * @param {object} options
+     * @param {any} value
+     * @public
+     * @return {boolean} || {any} false if failed
+     */
 
     this.check = function(options, value){
         if(typeof options.type === 'undefined')
@@ -20,6 +26,11 @@ const typeHardeningBase = function(){
             return false;
         return list[options.type](obj);
     }
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let numberLimit = function(obj){
         if(
             (typeof obj.max === 'number')&&
@@ -33,6 +44,11 @@ const typeHardeningBase = function(){
                 return false;
         return true;
     }
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let stringLimit = function(obj){
         if(
             (typeof obj.max === 'number')&&
@@ -46,9 +62,19 @@ const typeHardeningBase = function(){
                 return false;
         return true;
     }
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let anyCheck = function(obj){
         return true;
     }
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let booleanCheck = function(obj){
         if (
             (obj.value === true) ||
@@ -57,24 +83,49 @@ const typeHardeningBase = function(){
             return true;
         return false;
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let integerCheck = function(obj){
         if (parseInt(obj.value) === obj.value)
             return numberLimit(obj);
         return false;
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let floatCheck = function(obj){
         if (parseFloat(obj.value) === obj.value)
             return numberLimit(obj);
         return false;
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let stringCheck = function(obj){
         if (obj.value.toString() === obj.value)
             return stringLimit(obj);
         return false;
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let arrayCheck = function(obj){
         return Array.isArray(obj.value);
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let selectCheck = function(obj){
         if(typeof obj.list === 'undefined')
             return false;
@@ -84,6 +135,11 @@ const typeHardeningBase = function(){
             return true;
         return false;
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
     let listCheck = function(obj){
         if(typeof obj.list === 'undefined')
             return false;
@@ -99,15 +155,30 @@ const typeHardeningBase = function(){
                 return true;
         return false;
     };
+    /*
+     * @param {object} obj
+     * @private
+     * @return {boolean}
+     */
+    let functionCheck = function(obj){
+        if(typeof obj.value === 'function')
+            return true;
+        return false;
+    }
+    /*
+     * @private
+     * @var {object}
+     */
     let list = {
         'any'     : anyCheck,
-        'boolean' : booleanCheck,
-        'integer' : integerCheck,
-        'float'   : floatCheck,
-        'string'  : stringCheck,
         'array'   : arrayCheck,
-        'select'  : selectCheck,
-        'list'    : listCheck
+        'boolean' : booleanCheck,
+        'float'   : floatCheck,
+        'function': functionCheck,
+        'integer' : integerCheck,
+        'list'    : listCheck,
+        'string'  : stringCheck,
+        'select'  : selectCheck
 
     };
 };
