@@ -1,6 +1,6 @@
 {
   "name": "typehardeningrc",
-  "version": "0.9.9-beta3",
+  "version": "0.9.9-beta4",
   "description": "Type hardening checker",
   "main": "index.js",
   "scripts": {
@@ -20,8 +20,6 @@
     "url": "https://github.com/Soldy/typeHardening/issues"
   },
   "devDependencies": {
-    "eslint": "^7.9.0",
-    "nanoTest": "^0.9.9-alpha-5",
-    "nyc": "^15.1.0"
+    "nanoTest": "^0.9.9-beta4"
   }
 }
