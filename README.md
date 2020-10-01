@@ -3,7 +3,7 @@
 Type hardening is a simple type / type limit checker
 
 
-##init 
+## init 
 
 
 ```javascript
@@ -12,7 +12,7 @@ const typeHardening =  new (require('./index.js')).typeHardeningBase();
 
 ```
 
-##check 
+## check 
 
 ```javacript
 
