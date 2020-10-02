@@ -8,7 +8,6 @@ const typeHardeningBase = function(){
      * @public
      * @return {boolean} false if failed true if correct
      */
-
     this.check = function(options, value){
         if(typeof options.type === 'undefined')
             return false;
@@ -25,7 +24,7 @@ const typeHardeningBase = function(){
         if(typeof list[options.type] === 'undefined')
             return false;
         return list[options.type](obj);
-    }
+    };
     /*
      * @param {object} obj
      * @private
@@ -43,7 +42,7 @@ const typeHardeningBase = function(){
         )
                 return false;
         return true;
-    }
+    };
     /*
      * @param {object} obj
      * @private
@@ -61,7 +60,7 @@ const typeHardeningBase = function(){
         )
                 return false;
         return true;
-    }
+    };
     /*
      * @param {object} obj
      * @private
@@ -164,22 +163,27 @@ const typeHardeningBase = function(){
         if(typeof obj.value === 'function')
             return true;
         return false;
-    }
+    };
     /*
      * @private
      * @var {object}
      */
     let list = {
-        'any'     : anyCheck,
-        'array'   : arrayCheck,
-        'boolean' : booleanCheck,
-        'float'   : floatCheck,
-        'function': functionCheck,
-        'integer' : integerCheck,
-        'list'    : listCheck,
-        'string'  : stringCheck,
-        'select'  : selectCheck
-
+        'any'      : anyCheck,
+        'array'    : arrayCheck,
+        '[]'       : arrayCheck,
+        'boolean'  : booleanCheck,
+        'bool'     : booleanCheck,
+        'float'    : floatCheck,
+        'function' : functionCheck,
+        'func'     : functionCheck,
+        '=>()'     : functionCheck,
+        '()'       : functionCheck,
+        'integer'  : integerCheck,
+        'int'      : integerCheck,
+        'list'     : listCheck,
+        'string'   : stringCheck,
+        'select'   : selectCheck
     };
 };
 
