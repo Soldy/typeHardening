@@ -105,6 +105,48 @@ nanoTest.add(
     false
 );
 nanoTest.add(
+    'check correct bool true',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'bool'
+            },
+            true
+        ]
+    },
+    '===',
+    true
+);
+nanoTest.add(
+    'check correct bool false',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'bool'
+            },
+            false
+        ]
+    },
+    '===',
+    true
+);
+nanoTest.add(
+    'check incorrect bool',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'bool'
+            },
+            44
+        ]
+    },
+    '===',
+    false
+);
+nanoTest.add(
     'check correct integer',
     {
         'function':typeHardening.check,
@@ -152,14 +194,76 @@ nanoTest.add(
     '===',
     false
 );
-
 nanoTest.add(
-    'check correct integer with limit to small',
+    'check incorrect integer',
     {
         'function':typeHardening.check,
         'options' :[
             {
-                'type':'integer',
+                'type':'integer'
+            },
+            44.44
+        ]
+    },
+    '===',
+    false
+);
+nanoTest.add(
+    'check correct int',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'int'
+            },
+            44
+        ]
+    },
+    '===',
+    true
+);
+
+nanoTest.add(
+    'check correct int with limit',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'int',
+                'min' : 20,
+                'max' : 50
+            },
+            44
+        ]
+    },
+    '===',
+    true
+);
+
+nanoTest.add(
+    'check correct int with limit to big',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'int',
+                'min' : 20,
+                'max' : 33
+            },
+            44
+        ]
+    },
+    '===',
+    false
+);
+
+nanoTest.add(
+    'check correct int with limit to small',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'int',
                 'min' : 46,
                 'max' : 50
             },
@@ -172,12 +276,12 @@ nanoTest.add(
 
 
 nanoTest.add(
-    'check incorrect integer',
+    'check incorrect int',
     {
         'function':typeHardening.check,
         'options' :[
             {
-                'type':'integer'
+                'type':'int'
             },
             44.44
         ]
@@ -309,7 +413,35 @@ nanoTest.add(
         'function':typeHardening.check,
         'options' :[
             {
-                'type':'array'
+                'type':'arrayy'
+            },
+            'not an array'
+        ]
+    },
+    '===',
+    false
+);
+nanoTest.add(
+    'check correct []',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'[]'
+            },
+            ['just','an','array']
+        ]
+    },
+    '===',
+    true
+);
+nanoTest.add(
+    'check incorrect []',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'[]'
             },
             'not an array'
         ]
@@ -591,6 +723,150 @@ nanoTest.add(
 
 
 
+nanoTest.add(
+    'check correct func',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'func'
+            },
+            function(){ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check correct arrow func ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'func'
+            },
+            ()=>{ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check incorrect func ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'func'
+            },
+            'not a function'
+        ]
+    },
+    '===',
+    false 
+);
+
+
+
+nanoTest.add(
+    'check correct =>() ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'=>()'
+            },
+            function(){ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check correct arrow =>() ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'=>()'
+            },
+            ()=>{ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check incorrect =>() ',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'=>()'
+            },
+            'not a function'
+        ]
+    },
+    '===',
+    false 
+);
+
+
+
+nanoTest.add(
+    'check correct ()',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'()'
+            },
+            function(){ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check correct arrow ()',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'()'
+            },
+            ()=>{ return false; }
+        ]
+    },
+    '===',
+    true
+);
+
+
+nanoTest.add(
+    'check incorrect ()',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'()'
+            },
+            'not a function'
+        ]
+    },
+    '===',
+    false 
+);
 
 nanoTest.run();
 
