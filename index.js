@@ -35,12 +35,12 @@ const typeHardeningBase = function(){
             (typeof obj.max === 'number')&&
             (obj.value > obj.max)
         )
-                return false;
+            return false;
         if(
             (typeof obj.min === 'number')&&
             (obj.min > obj.value)
         )
-                return false;
+            return false;
         return true;
     };
     /*
@@ -53,12 +53,12 @@ const typeHardeningBase = function(){
             (typeof obj.max === 'number')&&
             (obj.value.length > obj.max)
         )
-                return false;
+            return false;
         if(
             (typeof obj.min === 'number')&&
             (obj.min > obj.value.length)
         )
-                return false;
+            return false;
         return true;
     };
     /*
@@ -68,7 +68,7 @@ const typeHardeningBase = function(){
      */
     let anyCheck = function(obj){
         return true;
-    }
+    };
     /*
      * @param {object} obj
      * @private
@@ -150,8 +150,8 @@ const typeHardeningBase = function(){
                     return false; 
             return true;
         }else
-            if(obj.list.indexOf(obj.value) > -1)
-                return true;
+        if(obj.list.indexOf(obj.value) > -1)
+            return true;
         return false;
     };
     /*
