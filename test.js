@@ -2,7 +2,7 @@ const nanoTest  = new (require('nanoTest')).test({
     'debugPrint' : 'short'
 });
 
-const typeHardening =  new (require('./index.js')).typeHardeningBase();
+const typeHardening =  new (require('./index.js')).base();
 
 nanoTest.add(
     'check missing type',

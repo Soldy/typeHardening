@@ -187,4 +187,4 @@ const typeHardeningBase = function(){
     };
 };
 
-exports.typeHardeningBase = typeHardeningBase;
+exports.base = typeHardeningBase;

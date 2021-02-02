@@ -8,7 +8,7 @@ Type hardening is a simple type / type limit checker
 
 ```javascript
 
-const typeHardening =  new (require('./index.js')).typeHardeningBase();
+const typeHardening =  new (require('./index.js')).base();
 
 ```
 
