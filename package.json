@@ -14,8 +14,8 @@
     "hardening",
     "type Checker"
   ],
-  "author": "Soldy",
-  "license": "GPLv3",
+  "author": "Soldy <npmjs@gidigi.com> (http://gidigi.com)",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Soldy/typeHardening/issues"
   },
