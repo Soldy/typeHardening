@@ -24,5 +24,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm i --verbose
-    - run: npm test
+    - run: npm i --verbose --only=prod
+    - run: npm i --verbose --only=dev
+    - run: npm i nanoTest
+    - run: npm --version
+    - run: npm test --verbose

@@ -1,6 +1,6 @@
 {
   "name": "typehardeningrc",
-  "version": "0.9.9-beta16",
+  "version": "0.9.9-beta17c",
   "description": "Type hardening checker",
   "main": "index.js",
   "scripts": {
@@ -19,12 +19,8 @@
   "bugs": {
     "url": "https://github.com/Soldy/typeHardening/issues"
   },
-  "devDependencies": {},
-  "dependencies": {
-    "assertrc": "^1.0.2-rc2",
-    "consolebarrc": "^0.0.2-rc3",
-    "consolestylerc": "^0.0.4",
-    "sandboxrc": "^0.9.9-beta15",
-    "setuprc": "^0.9.9-beta16"
-  }
+  "devDependencies": {
+    "nanoTest": "^0.9.9-beta17b"
+  },
+  "dependencies": {}
 }
