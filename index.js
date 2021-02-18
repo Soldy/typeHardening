@@ -25,9 +25,23 @@ const typeHardeningBase = function(){
             obj.max = options.max;
         if(typeof options.min !== 'undefined')
             obj.min = options.min;
-        if(typeof list[options.type] === 'undefined')
+        if(typeof listChec[options.type] === 'undefined')
             return false;
-        return list[options.type](obj);
+        return listCheck[options.type](obj);
+    };
+    /*
+     * @param {object} options
+     * @public
+     * @return {any}
+     */
+    this.default = function(options){
+        if(typeof options['default'] !== 'undefined')
+            return options['default'];
+        if(typeof options.type === 'undefined')
+            return false;
+        if(typeof listCheck[options.type] === 'undefined')
+            return false;
+        return listiDefault[options.type]();
     };
     /*
      * @param {object} obj
@@ -172,13 +186,111 @@ const typeHardeningBase = function(){
      * @private
      * @var {object}
      */
-    const list = {
+    const listCheck = {
         'any'      : anyCheck,
         'array'    : arrayCheck,
         '[]'       : arrayCheck,
         'boolean'  : booleanCheck,
         'bool'     : booleanCheck,
         'float'    : floatCheck,
+        'function' : functionCheck,
+        'func'     : functionCheck,
+        '=>()'     : functionCheck,
+        '()'       : functionCheck,
+        'integer'  : integerCheck,
+        'int'      : integerCheck,
+        'list'     : listCheck,
+        'string'   : stringCheck,
+        'select'   : selectCheck
+    };
+    /*
+     * @private
+     * @return {string}
+     */
+    const anyDefault = function(obj){
+        return '';
+    };
+    /*
+     * @private
+     * @return {array}
+     */
+    const booleanDefault = function(obj){
+        return [];
+    };
+    /*
+     * @private
+     * @return {boolean}
+     */
+    const booleanDefault = function(obj){
+        return [];
+    };
+    /*
+     * @private
+     * @return {float}
+     */
+    const floatDefault = function(obj){
+        return 0.00;
+    };
+    /*
+     * @private
+     * @return {function}
+     */
+    const functionDefault = function(obj){
+        return ()=>false;
+    };
+    /*
+     * @private
+     * @return {array}
+     */
+    const listDefault = function(obj){
+        if ( 
+            (typeof obj.value === 'undefined')||
+            (typeof obj.value[0] === 'undefined')
+        )
+            return false;
+        return [
+            obj.value[0]
+        ];
+    };
+    /*
+     * @private
+     * @return {integer}
+     */
+    const integerDefault = function(obj){
+        return 0;
+    };
+    /*
+     * @private
+     * @return {string}
+     */
+    const stringDefault = function(obj){
+        return '';
+    };
+    /*
+     * @private
+     * @return {string||array|float||boolean}
+     */
+    const selectDefault = function(obj){
+        if ( 
+            (typeof obj.value === 'undefined')||
+            (typeof obj.value[0] === 'undefined')
+        )
+            return false;
+        return obj.value[0]
+    };
+
+
+    /*
+     * @private
+     * @var {object}
+     */
+    const listDefault = {
+        'any'      : anyDefault,
+        'array'    : arrayDefault,
+        '[]'       : arrayDefault,
+        'boolean'  : booleanDefault,
+        'bool'     : booleanDefault,
+        'float'    : floatDefault,
         'function' : functionCheck,
         'func'     : functionCheck,
         '=>()'     : functionCheck,
