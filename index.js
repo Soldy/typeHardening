@@ -1,6 +1,10 @@
+/*
+ *  @Soldy\typeHardeningrc\2021.02.18\GPL3
+ */
 'use strict';
-
-
+/*
+ * @prototype
+ */
 const typeHardeningBase = function(){
     /*
      * @param {object} options
