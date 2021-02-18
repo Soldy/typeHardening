@@ -30,7 +30,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let numberLimit = function(obj){
+    const numberLimit = function(obj){
         if(
             (typeof obj.max === 'number')&&
             (obj.value > obj.max)
@@ -48,7 +48,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let stringLimit = function(obj){
+    const stringLimit = function(obj){
         if(
             (typeof obj.max === 'number')&&
             (obj.value.length > obj.max)
@@ -66,7 +66,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let anyCheck = function(obj){
+    const anyCheck = function(obj){
         return true;
     };
     /*
@@ -74,7 +74,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let booleanCheck = function(obj){
+    const booleanCheck = function(obj){
         if (
             (obj.value === true) ||
             (obj.value === false)
@@ -87,7 +87,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let integerCheck = function(obj){
+    const integerCheck = function(obj){
         if (parseInt(obj.value) === obj.value)
             return numberLimit(obj);
         return false;
@@ -97,7 +97,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let floatCheck = function(obj){
+    const floatCheck = function(obj){
         if (parseFloat(obj.value) === obj.value)
             return numberLimit(obj);
         return false;
@@ -107,7 +107,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let stringCheck = function(obj){
+    const stringCheck = function(obj){
         if (obj.value.toString() === obj.value)
             return stringLimit(obj);
         return false;
@@ -117,7 +117,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let arrayCheck = function(obj){
+    const arrayCheck = function(obj){
         return Array.isArray(obj.value);
     };
     /*
@@ -125,7 +125,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let selectCheck = function(obj){
+    const selectCheck = function(obj){
         if(typeof obj.list === 'undefined')
             return false;
         if(!Array.isArray(obj.list))
@@ -139,7 +139,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let listCheck = function(obj){
+    const listCheck = function(obj){
         if(typeof obj.list === 'undefined')
             return false;
         if(!Array.isArray(obj.list))
@@ -159,7 +159,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    let functionCheck = function(obj){
+    const functionCheck = function(obj){
         if(typeof obj.value === 'function')
             return true;
         return false;
@@ -168,7 +168,7 @@ const typeHardeningBase = function(){
      * @private
      * @var {object}
      */
-    let list = {
+    const list = {
         'any'      : anyCheck,
         'array'    : arrayCheck,
         '[]'       : arrayCheck,
