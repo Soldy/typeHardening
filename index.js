@@ -25,9 +25,9 @@ const typeHardeningBase = function(){
             obj.max = options.max;
         if(typeof options.min !== 'undefined')
             obj.min = options.min;
-        if(typeof listChec[options.type] === 'undefined')
+        if(typeof checkList[options.type] === 'undefined')
             return false;
-        return listCheck[options.type](obj);
+        return checkList[options.type](obj);
     };
     /*
      * @param {object} options
@@ -41,7 +41,7 @@ const typeHardeningBase = function(){
             return false;
         if(typeof listCheck[options.type] === 'undefined')
             return false;
-        return listiDefault[options.type]();
+        return defaultList[options.type]();
     };
     /*
      * @param {object} obj
@@ -186,7 +186,7 @@ const typeHardeningBase = function(){
      * @private
      * @var {object}
      */
-    const listCheck = {
+    const checkList = {
         'any'      : anyCheck,
         'array'    : arrayCheck,
         '[]'       : arrayCheck,
@@ -214,7 +214,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {array}
      */
-    const booleanDefault = function(obj){
+    const arrayDefault = function(obj){
         return [];
     };
     /*
@@ -222,14 +222,16 @@ const typeHardeningBase = function(){
      * @return {boolean}
      */
     const booleanDefault = function(obj){
-        return [];
+        return false;
     };
     /*
      * @private
      * @return {float}
      */
     const floatDefault = function(obj){
-        return 0.00;
+        if(typeof obj.min === 'undefined')
+            return 0.00;
+        return obj.min;
     };
     /*
      * @private
@@ -244,12 +246,12 @@ const typeHardeningBase = function(){
      */
     const listDefault = function(obj){
         if ( 
-            (typeof obj.value === 'undefined')||
-            (typeof obj.value[0] === 'undefined')
+            (typeof obj.list === 'undefined')||
+            (typeof obj.list[0] === 'undefined')
         )
             return false;
         return [
-            obj.value[0]
+            obj.list[0]
         ];
     };
     /*
@@ -257,14 +259,18 @@ const typeHardeningBase = function(){
      * @return {integer}
      */
     const integerDefault = function(obj){
-        return 0;
+        if(typeof obj.min === 'undefined')
+            return 0;
+        return obj.min;
     };
     /*
      * @private
      * @return {string}
      */
     const stringDefault = function(obj){
-        return '';
+        if(typeof obj.min === 'undefined')
+            return '';
+        return ('').padEnd(obj.min, ' ');
     };
     /*
      * @private
@@ -272,11 +278,11 @@ const typeHardeningBase = function(){
      */
     const selectDefault = function(obj){
         if ( 
-            (typeof obj.value === 'undefined')||
-            (typeof obj.value[0] === 'undefined')
+            (typeof obj.list === 'undefined')||
+            (typeof obj.list[0] === 'undefined')
         )
             return false;
-        return obj.value[0]
+        return obj.list[0];
     };
 
 
@@ -284,22 +290,22 @@ const typeHardeningBase = function(){
      * @private
      * @var {object}
      */
-    const listDefault = {
+    const defaultList = {
         'any'      : anyDefault,
         'array'    : arrayDefault,
         '[]'       : arrayDefault,
         'boolean'  : booleanDefault,
         'bool'     : booleanDefault,
         'float'    : floatDefault,
-        'function' : functionCheck,
-        'func'     : functionCheck,
-        '=>()'     : functionCheck,
-        '()'       : functionCheck,
-        'integer'  : integerCheck,
-        'int'      : integerCheck,
-        'list'     : listCheck,
-        'string'   : stringCheck,
-        'select'   : selectCheck
+        'function' : functionDefault,
+        'func'     : functionDefault,
+        '=>()'     : functionDefault,
+        '()'       : functionDefault,
+        'integer'  : integerDefault,
+        'int'      : integerDefault,
+        'list'     : listDefault,
+        'string'   : stringDefault,
+        'select'   : selectDefault
     };
 };
 
