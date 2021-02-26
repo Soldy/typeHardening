@@ -14,7 +14,7 @@ const typeHardening =  new (require('./index.js')).base();
 ## supported types
 
 
-   |    type   |
+   |    type   | comment
    |-----------|-----------
    |     any   | 
    |    array  | 
