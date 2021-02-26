@@ -5,7 +5,7 @@
 /*
  * @prototype
  */
-const typeHardeningBase = function(){
+const TypeHardeningBase = function(){
     /*
      * @param {object} options
      * @param {any} value
@@ -17,38 +17,24 @@ const typeHardeningBase = function(){
             return false;
         if(typeof value === 'undefined')
             return false;
-        let obj = {};
-        obj.value = value;
-        if(typeof options.list !== 'undefined')
-            obj.list = options.list;
-        if(typeof options.max !== 'undefined')
-            obj.max = options.max;
-        if(typeof options.min !== 'undefined')
-            obj.min = options.min;
-        if(typeof checkList[options.type] === 'undefined')
-            return false;
-        return checkList[options.type](obj);
+        return _check(options, value);
     };
     /*
      * @param {object} options
      * @public
      * @return {any}
      */
-    this.default = function(options){
+    this.getDefault = function(options){
         if(typeof options['default'] !== 'undefined')
             return options['default'];
-        if(typeof options.type === 'undefined')
-            return false;
-        if(typeof listCheck[options.type] === 'undefined')
-            return false;
-        return defaultList[options.type]();
+        return _getDefault(options);
     };
     /*
      * @param {object} obj
      * @private
      * @return {boolean}
      */
-    const numberLimit = function(obj){
+    const _numberLimit = function(obj){
         if(
             (typeof obj.max === 'number')&&
             (obj.value > obj.max)
@@ -66,7 +52,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const stringLimit = function(obj){
+    const _stringLimit = function(obj){
         if(
             (typeof obj.max === 'number')&&
             (obj.value.length > obj.max)
@@ -84,7 +70,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const anyCheck = function(obj){
+    const _anyCheck = function(obj){
         return true;
     };
     /*
@@ -92,7 +78,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const booleanCheck = function(obj){
+    const _booleanCheck = function(obj){
         if (
             (obj.value === true) ||
             (obj.value === false)
@@ -105,9 +91,9 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const integerCheck = function(obj){
+    const _integerCheck = function(obj){
         if (parseInt(obj.value) === obj.value)
-            return numberLimit(obj);
+            return _numberLimit(obj);
         return false;
     };
     /*
@@ -115,9 +101,9 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const floatCheck = function(obj){
+    const _floatCheck = function(obj){
         if (parseFloat(obj.value) === obj.value)
-            return numberLimit(obj);
+            return _numberLimit(obj);
         return false;
     };
     /*
@@ -125,9 +111,9 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const stringCheck = function(obj){
+    const _stringCheck = function(obj){
         if (obj.value.toString() === obj.value)
-            return stringLimit(obj);
+            return _stringLimit(obj);
         return false;
     };
     /*
@@ -135,7 +121,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const arrayCheck = function(obj){
+    const _arrayCheck = function(obj){
         return Array.isArray(obj.value);
     };
     /*
@@ -143,7 +129,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const selectCheck = function(obj){
+    const _selectCheck = function(obj){
         if(typeof obj.list === 'undefined')
             return false;
         if(!Array.isArray(obj.list))
@@ -157,7 +143,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const listCheck = function(obj){
+    const _listCheck = function(obj){
         if(typeof obj.list === 'undefined')
             return false;
         if(!Array.isArray(obj.list))
@@ -177,7 +163,7 @@ const typeHardeningBase = function(){
      * @private
      * @return {boolean}
      */
-    const functionCheck = function(obj){
+    const _functionCheck = function(obj){
         if(typeof obj.value === 'function')
             return true;
         return false;
@@ -186,65 +172,90 @@ const typeHardeningBase = function(){
      * @private
      * @var {object}
      */
-    const checkList = {
-        'any'      : anyCheck,
-        'array'    : arrayCheck,
-        '[]'       : arrayCheck,
-        'boolean'  : booleanCheck,
-        'bool'     : booleanCheck,
-        'float'    : floatCheck,
-        'function' : functionCheck,
-        'func'     : functionCheck,
-        '=>()'     : functionCheck,
-        '()'       : functionCheck,
-        'integer'  : integerCheck,
-        'int'      : integerCheck,
-        'list'     : listCheck,
-        'string'   : stringCheck,
-        'select'   : selectCheck
+    const _checkList = {
+        'any'      : _anyCheck,
+        'array'    : _arrayCheck,
+        '[]'       : _arrayCheck,
+        'boolean'  : _booleanCheck,
+        'bool'     : _booleanCheck,
+        'float'    : _floatCheck,
+        'function' : _functionCheck,
+        'func'     : _functionCheck,
+        '=>()'     : _functionCheck,
+        '()'       : _functionCheck,
+        'integer'  : _integerCheck,
+        'int'      : _integerCheck,
+        'list'     : _listCheck,
+        'string'   : _stringCheck,
+        'select'   : _selectCheck
     };
     /*
+     * @param {object} options
+     * @param {any} value
+     * @public
+     * @return {boolean} false if failed true if correct
+     */
+    const _check = function(options, value){
+        let obj = {};
+        obj.value = value;
+        if(typeof options.list !== 'undefined')
+            obj.list = options.list;
+        if(typeof options.max !== 'undefined')
+            obj.max = options.max;
+        if(typeof options.min !== 'undefined')
+            obj.min = options.min;
+        if(typeof _checkList[options.type] === 'undefined')
+            return false;
+        return _checkList[options.type](obj);
+    };
+    /*
+     * @param {object} obj
      * @private
      * @return {string}
      */
-    const anyDefault = function(obj){
+    const _anyDefault = function(obj){
         return '';
     };
     /*
+     * @param {object} obj
      * @private
      * @return {array}
      */
-    const arrayDefault = function(obj){
+    const _arrayDefault = function(obj){
         return [];
     };
     /*
+     * @param {object} obj
      * @private
      * @return {boolean}
      */
-    const booleanDefault = function(obj){
+    const _booleanDefault = function(obj){
         return false;
     };
     /*
+     * @param {object} obj
      * @private
      * @return {float}
      */
-    const floatDefault = function(obj){
+    const _floatDefault = function(obj){
         if(typeof obj.min === 'undefined')
             return 0.00;
         return obj.min;
     };
     /*
+     * @param {object} obj
      * @private
      * @return {function}
      */
-    const functionDefault = function(obj){
+    const _functionDefault = function(obj){
         return ()=>false;
     };
     /*
+     * @param {object} obj
      * @private
      * @return {array}
      */
-    const listDefault = function(obj){
+    const _listDefault = function(obj){
         if ( 
             (typeof obj.list === 'undefined')||
             (typeof obj.list[0] === 'undefined')
@@ -255,28 +266,31 @@ const typeHardeningBase = function(){
         ];
     };
     /*
+     * @param {object} obj
      * @private
      * @return {integer}
      */
-    const integerDefault = function(obj){
+    const _integerDefault = function(obj){
         if(typeof obj.min === 'undefined')
             return 0;
         return obj.min;
     };
     /*
+     * @param {object} obj
      * @private
      * @return {string}
      */
-    const stringDefault = function(obj){
+    const _stringDefault = function(obj){
         if(typeof obj.min === 'undefined')
             return '';
         return ('').padEnd(obj.min, ' ');
     };
     /*
+     * @param {object} obj
      * @private
      * @return {string||array|float||boolean}
      */
-    const selectDefault = function(obj){
+    const _selectDefault = function(obj){
         if ( 
             (typeof obj.list === 'undefined')||
             (typeof obj.list[0] === 'undefined')
@@ -290,23 +304,38 @@ const typeHardeningBase = function(){
      * @private
      * @var {object}
      */
-    const defaultList = {
-        'any'      : anyDefault,
-        'array'    : arrayDefault,
-        '[]'       : arrayDefault,
-        'boolean'  : booleanDefault,
-        'bool'     : booleanDefault,
-        'float'    : floatDefault,
-        'function' : functionDefault,
-        'func'     : functionDefault,
-        '=>()'     : functionDefault,
-        '()'       : functionDefault,
-        'integer'  : integerDefault,
-        'int'      : integerDefault,
-        'list'     : listDefault,
-        'string'   : stringDefault,
-        'select'   : selectDefault
+    const _defaultList = {
+        'any'      : _anyDefault,
+        'array'    : _arrayDefault,
+        '[]'       : _arrayDefault,
+        'boolean'  : _booleanDefault,
+        'bool'     : _booleanDefault,
+        'float'    : _floatDefault,
+        'function' : _functionDefault,
+        'func'     : _functionDefault,
+        '=>()'     : _functionDefault,
+        '()'       : _functionDefault,
+        'integer'  : _integerDefault,
+        'int'      : _integerDefault,
+        'list'     : _listDefault,
+        'string'   : _stringDefault,
+        'select'   : _selectDefault
+    };
+    /*
+     * @param {object} options
+     * @private
+     * @return {any}
+     */
+    const _getDefault = function(options){
+        if(typeof options['default'] !== 'undefined')
+            return options['default'];
+        if(typeof options.type === 'undefined')
+            return false;
+        if(typeof _defaultList[options.type] === 'undefined')
+            return false;
+        return _defaultList[options.type](options);
     };
 };
 
-exports.base = typeHardeningBase;
+exports.base = TypeHardeningBase;
+exports.Base = TypeHardeningBase;

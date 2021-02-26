@@ -868,5 +868,76 @@ nanoTest.add(
     false 
 );
 
+nanoTest.add(
+    'default any',
+    {
+        'function':typeHardening.getDefault,
+        'options' :[
+            {
+                'type':'any'
+            }
+        ]
+    },
+    '===',
+    ''
+);
+
+
+nanoTest.add(
+    'default boolean',
+    {
+        'function':typeHardening.getDefault,
+        'options' :[
+            {
+                'type':'boolean'
+            }
+        ]
+    },
+    '===',
+    false
+);
+
+nanoTest.add(
+    'default float',
+    {
+        'function':typeHardening.getDefault,
+        'options' :[
+            {
+                'type':'float'
+            }
+        ]
+    },
+    '===',
+    0.00
+);
+
+nanoTest.add(
+    'default integer',
+    {
+        'function':typeHardening.getDefault,
+        'options' :[
+            {
+                'type':'int'
+            }
+        ]
+    },
+    '===',
+    0
+);
+
+nanoTest.add(
+    'default string',
+    {
+        'function':typeHardening.getDefault,
+        'options' :[
+            {
+                'type':'string'
+            }
+        ]
+    },
+    '===',
+    ''
+);
+
 nanoTest.run();
 
