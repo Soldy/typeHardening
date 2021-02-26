@@ -11,23 +11,55 @@ Type hardening is a simple type / type limit checker
 const typeHardening =  new (require('./index.js')).base();
 
 ```
+## supported types
 
-## check 
 
-```javacript
+   |    type   |
+   |-----------|-----------
+   |     any   | 
+   |    array  | 
+   |   boolean |
+   |    float  | 
+   |  function | 
+   |  integer  | 
+   |    list   | 
+   |   select  | 
+   |   string  | 
 
-typeHardening.check(
-    {  // variable type description
+## type object 
+
+```javascript
+const typeObject = {  // variable type description
        'type':'string', // variable type
        'list': [], // list of posible values (optional)
        'max': [], // maximum value limit (optional)
        'min': [] // minimum value limit (optional)
     },
-    'variable' // the variable 
+
+```
+
+
+## check 
+
+```javacript
+
+typeHardening.check( 
+    typeObject,
+    'value' // checkable value
 );
 
+// expectation is boolean
 
-// expectation is true
+```
+
+## getDefault value 
+
+```javacript
+
+typeHardening.getDefault( typeObject );
+
+
+// expectation is any
 
 ```
 
