@@ -29,6 +29,64 @@ const TypeHardeningBase = function(){
             return options['default'];
         return _getDefault(options);
     };
+    const _real_types = [
+        'any',
+        'array',
+        'boolean',
+        'float',
+        'function',
+        'integer',
+        'list',
+        'select',
+        'string'
+    ];
+    const _link_types = [
+        '[]',
+        'bool',
+        'func',
+        '=>()',
+        '()',
+        'int'
+    ];
+    const _dictonary = {
+        'any'      : 'any',
+        'array'    : 'array',
+        '[]'       : 'array',
+        'boolean'  : 'boolean',
+        'bool'     : 'boolean',
+        'float'    : 'float',
+        'function' : 'function',
+        'func'     : 'function',
+        '=>()'     : 'function',
+        '()'       : 'function',
+        'integer'  : 'integer',
+        'int'      : 'integer',
+        'list'     : 'list',
+        'select'   : 'select',
+        'string'   : 'string'
+    };
+    const _translator = function(type){
+        if (typeof _dictonary[type] === 'undefined' )
+             return false;
+        return _dictonary[type];
+    }
+    const _realTypeExist = function(type){
+        if (_real_types.indexOf(type) > -1 )
+            return true;
+        return false;
+    }
+    const _linkTypeExist = function(type){
+        if (_link_types.indexOf(type) > -1 )
+            return true;
+        return false;
+    }
+    const _typeExist  = function(type){
+        if(_realTypeExist(type))
+             return true;
+        if(_linkTypeExist(type))
+             return true;
+        return false;
+    }
     /*
      * @param {object} obj
      * @private
@@ -175,16 +233,10 @@ const TypeHardeningBase = function(){
     const _checkList = {
         'any'      : _anyCheck,
         'array'    : _arrayCheck,
-        '[]'       : _arrayCheck,
         'boolean'  : _booleanCheck,
-        'bool'     : _booleanCheck,
         'float'    : _floatCheck,
         'function' : _functionCheck,
-        'func'     : _functionCheck,
-        '=>()'     : _functionCheck,
-        '()'       : _functionCheck,
         'integer'  : _integerCheck,
-        'int'      : _integerCheck,
         'list'     : _listCheck,
         'string'   : _stringCheck,
         'select'   : _selectCheck
@@ -204,8 +256,9 @@ const TypeHardeningBase = function(){
             obj.max = options.max;
         if(typeof options.min !== 'undefined')
             obj.min = options.min;
-        if(typeof _checkList[options.type] === 'undefined')
+        if(_typeExist(options.type) === false)
             return false;
+        options.type = _translator(options.type);
         return _checkList[options.type](obj);
     };
     /*
@@ -307,16 +360,10 @@ const TypeHardeningBase = function(){
     const _defaultList = {
         'any'      : _anyDefault,
         'array'    : _arrayDefault,
-        '[]'       : _arrayDefault,
         'boolean'  : _booleanDefault,
-        'bool'     : _booleanDefault,
         'float'    : _floatDefault,
         'function' : _functionDefault,
-        'func'     : _functionDefault,
-        '=>()'     : _functionDefault,
-        '()'       : _functionDefault,
         'integer'  : _integerDefault,
-        'int'      : _integerDefault,
         'list'     : _listDefault,
         'select'   : _selectDefault,
         'string'   : _stringDefault
@@ -331,67 +378,11 @@ const TypeHardeningBase = function(){
             return options['default'];
         if(typeof options.type === 'undefined')
             return false;
-        if(typeof _defaultList[options.type] === 'undefined')
+        if(_typeExist(options.type) === false)
             return false;
+        options.type = _translator(options.type);
         return _defaultList[options.type](options);
     };
-    const _real_types = [
-        'any',
-        'array',
-        'boolean',
-        'float',
-        'function',
-        'integer',
-        'list',
-        'select',
-        'string'
-    ];
-    const _link_types = [
-        '[]',
-        'bool',
-        'func',
-        '=>()',
-        '()',
-        'int'
-    ];
-    const _dictonary = {
-        'any'      : 'any',
-        'array'    : 'array',
-        '[]'       : 'array',
-        'boolean'  : 'boolean',
-        'bool'     : 'boolean',
-        'float'    : 'float',
-        'function' : 'function',
-        'func'     : 'function',
-        '=>()'     : 'function',
-        '()'       : 'function',
-        'integer'  : 'integer',
-        'int'      : 'integer',
-        'list'     : 'list',
-        'select'   : 'select',
-        'string'   : 'string'
-    };
-    const _translator = function(type){
-        return _dictonary[type];
-    }
-    const _realTypeExist = function(type){
-        if (_real_types.indexOf(tyye) > -1 )
-            return true;
-        return false;
-    }
-    const _linkTypeExist = function(type){
-        if (_link_types.indexOf(tyye) > -1 )
-            return true;
-        return false;
-    }
-    const _typeExist  = function(type){
-        if(_realTypeExist(type))
-             return true;
-        if(_linkTypeExist(type))
-             return true;
-        return false;
-    }
 };
-
 exports.base = TypeHardeningBase;
 exports.Base = TypeHardeningBase;
