@@ -80,11 +80,9 @@ const TypeHardeningBase = function(){
     /*
      * @param {string}
      * @private
-     * @return {boolean||string}
+     * @return {string}
      */
     const _translator = function(type){
-        if (typeof _dictonary[type] === 'undefined' )
-             return false;
         return _dictonary[type];
     }
     /*
