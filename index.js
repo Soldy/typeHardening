@@ -29,6 +29,10 @@ const TypeHardeningBase = function(){
             return options['default'];
         return _getDefault(options);
     };
+    /*
+     * @private
+     * @rvar {arra}
+     */
     const _real_types = [
         'any',
         'array',
@@ -40,6 +44,10 @@ const TypeHardeningBase = function(){
         'select',
         'string'
     ];
+    /*
+     * @private
+     * @rvar {arra}
+     */
     const _link_types = [
         '[]',
         'bool',
@@ -48,6 +56,10 @@ const TypeHardeningBase = function(){
         '()',
         'int'
     ];
+    /*
+     * @private
+     * @rvar {arra}
+     */
     const _dictonary = {
         'any'      : 'any',
         'array'    : 'array',
@@ -65,21 +77,41 @@ const TypeHardeningBase = function(){
         'select'   : 'select',
         'string'   : 'string'
     };
+    /*
+     * @param {string}
+     * @private
+     * @return {boolean||string}
+     */
     const _translator = function(type){
         if (typeof _dictonary[type] === 'undefined' )
              return false;
         return _dictonary[type];
     }
+    /*
+     * @param {string}
+     * @private
+     * @return {boolean}
+     */
     const _realTypeExist = function(type){
         if (_real_types.indexOf(type) > -1 )
             return true;
         return false;
     }
+    /*
+     * @param {string}
+     * @private
+     * @return {boolean}
+     */
     const _linkTypeExist = function(type){
         if (_link_types.indexOf(type) > -1 )
             return true;
         return false;
     }
+    /*
+     * @param {string}
+     * @private
+     * @return {boolean}
+     */
     const _typeExist  = function(type){
         if(_realTypeExist(type))
              return true;
