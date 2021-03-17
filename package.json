@@ -1,6 +1,6 @@
 {
   "name": "typehardeningrc",
-  "version": "0.9.9-beta18",
+  "version": "0.9.9-beta19",
   "description": "Type hardening checker",
   "main": "index.js",
   "scripts": {
