@@ -415,4 +415,3 @@ const TypeHardeningBase = function(){
     };
 };
 exports.base = TypeHardeningBase;
-exports.Base = TypeHardeningBase;
