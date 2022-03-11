@@ -20,7 +20,7 @@
     "url": "https://github.com/Soldy/typeHardening/issues"
   },
   "devDependencies": {
-    "nanoTest": "^0.9.9-beta17c"
+    "nanoTest": "^0.9.9-beta26"
   },
   "dependencies": {}
 }

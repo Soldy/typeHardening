@@ -1,8 +1,10 @@
 const nanoTest  = new (require('nanoTest')).test({
-    'debugPrint' : 'short'
+    'debug_print' : 'short',
+    'progress_bar' : false
 });
 
 const typeHardening =  new (require('./index.js')).base();
+console.log('2 expected error messages is the correct result.');
 
 nanoTest.add(
     'check missing type',
@@ -59,8 +61,7 @@ nanoTest.add(
             'energy'
         ]
     },
-    '===',
-    false
+    'error'
 );
 nanoTest.add(
     'check correct boolean true',
@@ -418,8 +419,7 @@ nanoTest.add(
             'not an array'
         ]
     },
-    '===',
-    false
+    'error'
 );
 nanoTest.add(
     'check correct []',

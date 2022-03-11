@@ -282,12 +282,19 @@ const TypeHardeningBase = function(){
         obj.value = value;
         if(typeof options.list !== 'undefined')
             obj.list = options.list;
-        if(typeof options.max !== 'undefined')
+        if(typeof options.max === 'number')
             obj.max = options.max;
-        if(typeof options.min !== 'undefined')
+        if(typeof options.min === 'number')
             obj.min = options.min;
+        if(
+            (typeof obj.min === 'number')&&
+            (typeof obj.max === 'number')&&
+            ( obj.min > obj.max )
+
+        )
+            throw Error('Incorrect Limits')
         if(_typeExist(options.type) === false)
-            return false;
+            throw Error('Missing type');
         options.type = _translator(options.type);
         return _checkList[options.type](obj);
     };
