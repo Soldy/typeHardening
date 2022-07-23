@@ -3,9 +3,21 @@ const nanoTest  = new (require('nanoTest')).test({
     'progress_bar' : false
 });
 
-const typeHardening =  new (require('./index.js')).base();
+let typeHardeningrc =  (require('./index.js')).base;
+let typeHardening ;
 console.log('2 expected error messages is the correct result.');
 
+(async function(){
+nanoTest.add(
+    'init',
+    {
+        'function' : function(){
+            typeHardening = new typeHardeningrc();
+        }
+    },
+    '!error'
+);
+await nanoTest.partly();
 nanoTest.add(
     'check missing type',
     {
@@ -16,8 +28,22 @@ nanoTest.add(
             44
         ]
     },
+    'error'
+);
+nanoTest.add(
+    'check any no error',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'type':'any',
+                'no_error':true
+            },
+            null
+        ]
+    },
     '===',
-    false
+    true
 );
 
 nanoTest.add(
@@ -35,6 +61,20 @@ nanoTest.add(
     true
 );
 
+nanoTest.add(
+    'check missing value no error',
+    {
+        'function':typeHardening.check,
+        'options' :[
+            {
+                'no_error':true,
+                'type':'integer'
+            }
+        ]
+    },
+    '===',
+    false
+);
 
 nanoTest.add(
     'check missing value',
@@ -187,7 +227,8 @@ nanoTest.add(
             {
                 'type':'integer',
                 'min' : 20,
-                'max' : 33
+                'max' : 33,
+                'no_error':true
             },
             44
         ]
@@ -349,7 +390,7 @@ nanoTest.add(
     true
 );
 nanoTest.add(
-    'check toosmall string with limit',
+    'check tosmall string with limit',
     {
         'function':typeHardening.check,
         'options' :[
@@ -940,4 +981,4 @@ nanoTest.add(
 );
 
 nanoTest.run();
-
+})();
