@@ -1,4 +1,4 @@
-![workflow](https://github.com/Soldy/typeHardening/actions/workflows/.github/workflows/node.js.yml/badge.svg?branch=1.0.x)
+![workflow](https://github.com/Soldy/typeHardening/actions/workflows/.github/workflows/node.js.yml/badge.svg)
 
 # typeHardening
 
