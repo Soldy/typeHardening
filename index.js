@@ -13,12 +13,6 @@ const TypeHardening = function(){
      * @return {boolean} false if failed true if correct
      */
     this.check = function(options, value){
-        if(typeof options.type === 'undefined')
-           throw Error(
-                'type cant be undefined'
-            );
-        if(typeof value === 'undefined')
-            return false;
         return _check(options, value);
     };
     /*
@@ -90,7 +84,7 @@ const TypeHardening = function(){
      */
     const _translator = function(type){
         return _dictonary[type];
-    }
+    };
     /*
      * @param {string}
      * @private
@@ -100,7 +94,7 @@ const TypeHardening = function(){
         if (_real_types.indexOf(type) > -1 )
             return true;
         return false;
-    }
+    };
     /*
      * @param {string}
      * @private
@@ -110,7 +104,7 @@ const TypeHardening = function(){
         if (_link_types.indexOf(type) > -1 )
             return true;
         return false;
-    }
+    };
     /*
      * @param {string}
      * @private
@@ -118,11 +112,11 @@ const TypeHardening = function(){
      */
     const _typeExist  = function(type){
         if(_realTypeExist(type))
-             return true;
+            return true;
         if(_linkTypeExist(type))
-             return true;
+            return true;
         return false;
-    }
+    };
     /*
      * @param {object} obj
      * @private
@@ -133,9 +127,9 @@ const TypeHardening = function(){
             (typeof obj.max === 'number')&&
             (obj.value > obj.max)
         ){
-            if(typeof obj.do_error !== true )
+            if(obj.do_error !== true )
                 return false;
-           throw Error(
+            throw Error(
                 'Error: "'+
                 obj.value.toString()+
                 '" is to high'
@@ -145,7 +139,7 @@ const TypeHardening = function(){
             (typeof obj.min === 'number')&&
             (obj.min > obj.value)
         ){
-            if(typeof obj.do_error !== true )
+            if(obj.do_error !== true )
                 return false;
             throw Error(
                 'Error: "'+
@@ -165,7 +159,7 @@ const TypeHardening = function(){
             (typeof obj.max === 'number')&&
             (obj.value.length > obj.max)
         ){
-            if(typeof obj.do_error !== true )
+            if(obj.do_error !== true )
                 return false;
             throw Error(
                 'Error: "'+
@@ -179,7 +173,7 @@ const TypeHardening = function(){
             (typeof obj.min === 'number')&&
             (obj.min > obj.value.length)
         ){
-            if(typeof obj.do_error !== true )
+            if(obj.do_error !== true )
                 return false;
             throw Error(
                 'Error: "'+
@@ -187,7 +181,7 @@ const TypeHardening = function(){
                 '" is "'+
                 obj.value.length.toString()+
                 '" charater that less than the minimum'
-             );
+            );
         }
         return true;
     };
@@ -197,7 +191,9 @@ const TypeHardening = function(){
      * @return {boolean}
      */
     const _anyCheck = function(obj){
-        return true;
+        if(obj.type === 'any')
+            return true;
+        return false;
     };
     /*
      * @param {object} obj
@@ -206,13 +202,13 @@ const TypeHardening = function(){
      */
     const _booleanCheck = function(obj){
         if(typeof obj.value !== 'boolean'){
-            if(typeof obj.do_error !== true )
+            if(obj.do_error !== true )
                 return false;
             throw Error(
                 'Error: "'+
                 obj.value.toString()+
                 '" is not boolean'
-             );
+            );
         }
         if (
             (obj.value === true) ||
@@ -327,7 +323,7 @@ const TypeHardening = function(){
     const _check = function(options, value){
         let obj = {};
         obj.value = value;
-        obj.no_error = options.no_error;
+        obj.do_error = options.do_error;
         if(typeof options.list !== 'undefined')
             obj.list = options.list;
         if(typeof options.max === 'number')
@@ -340,17 +336,17 @@ const TypeHardening = function(){
             ( obj.min > obj.max )
 
         ){
-            if(typeof obj.no_error !== 'undefined' )
+            if(obj.do_error !== true )
                 return false;
-            throw Error('Incorrect Limits')
+            throw Error('Incorrect Limits');
         }
-        if(_typeExist(options.type) === false){
-            if(typeof obj.no_error !== 'undefined' )
+        if( _typeExist(options.type) === false){
+            if(obj.do_error !== true )
                 return false;
             throw Error('Missing type');
         }
-        options.type = _translator(options.type);
-        return _checkList[options.type](obj);
+        obj.type = _translator(options.type);
+        return _checkList[obj.type](obj);
     };
     /*
      * @param {object} obj
