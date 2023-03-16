@@ -70,4 +70,5 @@ typeHardening.getDefault( typeObject );
 # Warning!
 
 
-Do not change the const function defination to standard function defination. This is part of the override defend!
+
+Do not change the const function definition to the standard function definition. This is part of the override defense! 
