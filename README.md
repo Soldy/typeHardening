@@ -2,7 +2,7 @@
 
 # typeHardening
 
-Type hardening is a simple type and limit checker.
+Type hardening is a dynamic type-checking tool for javascript. Try to be simple as possible. 
 
 
 ## init 
@@ -67,4 +67,7 @@ typeHardening.getDefault( typeObject );
 ```
 
 
+# Warning!
 
+
+Do not change the const function defination to standard function defination. This is part of the override defend!
